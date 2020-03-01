@@ -1,9 +1,8 @@
 import { MessageBeforeSend, Message } from "../types/Message";
-import {
-    getAllMessages,
-    postMessage } from "../http";
+import { getAllMessages, postMessage } from "../http";
+import { Dispatch } from "redux";
 
-export enum ActionKind {
+export enum ActKindEnum {
 // MessageList
     GetNewMessage,
     GetAllMessages,
@@ -16,30 +15,30 @@ export enum ActionKind {
     SendMessage,
 }
 
-export interface Action {
-    type: ActionKind;
-    payload?: any;
+export type ActKind = keyof typeof ActKindEnum;
+
+export interface Act<Payload> {
+    type: ActKind
+    payload: Payload
 }
 
 // MessageList
-export function GetNewMessageAction(messages: Array<Message>) {
+export function GetNewMessageAction(
+    messages: Array<Message>
+): Act<Array<Message>> {
     return {
-        type: ActionKind.GetNewMessage,
-        payload: {
-            messages: messages
-        }
+        type: "GetNewMessage",
+        payload: messages
     }
 }
 
 export function getAllMessagesAction() {
-    return async (dispatch: any) => {
+    return async (dispatch: Dispatch<Act<Array<Message>>>) => {
         try {
             const messages = await getAllMessages();
             dispatch({
-                type: ActionKind.GetAllMessages,
-                payload: {
-                    messages
-                }
+                type: "GetAllMessages",
+                payload: messages
             });
         } catch (err) {
             console.log(err);
@@ -48,46 +47,41 @@ export function getAllMessagesAction() {
 }
 
 // Input
-export function changedNameInputAction(name: string) {
+export function changedNameInputAction(name: string): Act<string> {
     return {
-        type: ActionKind.ChangedNameInput,
-        payload: {
-            name,
-        }
+        type: "ChangedNameInput",
+        payload: name
     };
 }
-export function clearNameInputAction(): Action {
+export function clearNameInputAction(): Act<{}> {
     return {
-        type: ActionKind.ClearNameInput,
+        type: "ClearNameInput",
         payload: {}
     }
 }
 
 // TextArea
-export function changedMessageAreaAction(content: string): Action {
+export function changedMessageAreaAction(content: string): Act<string> {
     return {
-        type: ActionKind.ChangedMessageArea,
-        payload: {
-            content
-        }
+        type: "ChangedMessageArea",
+        payload: content
     };
 }
 
-export function clearMessageAreaAction(): Action {
+export function clearMessageAreaAction(): Act<{}> {
     return {
-        type: ActionKind.ClearMessageArea,
+        type: "ClearMessageArea",
+        payload: {}
     };
 }
 
 export function sendMessageAction(message: MessageBeforeSend) {
-    return async (dispatch: any) => {
+    return async (dispatch: Dispatch<Act<boolean>>) => {
         try {
             const status = await postMessage(message);
             dispatch({
-                type: ActionKind.SendMessage,
-                payload: {
-                    status
-                }
+                type: "SendMessage",
+                payload: status
             });
         } catch (err) {
             console.log(err);

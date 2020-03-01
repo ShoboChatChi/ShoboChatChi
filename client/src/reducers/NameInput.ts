@@ -1,16 +1,19 @@
 
-import { ActionKind, Action } from "../actions";
+import { Act } from "../actions";
 
-export function NameInputReducer(state = "", action: Action): string {
+export function NameInputReducer(
+    state = "",
+    action: Act<string | {}>
+): string {
     switch (action.type) {
-        case ActionKind.ChangedNameInput: {
-            if (action.payload !== undefined) {
-                return action.payload.name || state;
+        case "ChangedNameInput": {
+            if (typeof action.payload === "string") {
+                return action.payload;
             } else {
                 return state;
             }
         }
-        case ActionKind.ClearNameInput: {
+        case "ClearNameInput": {
             return "";
         }
         default: {
