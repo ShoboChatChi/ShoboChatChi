@@ -1,16 +1,19 @@
 
-import { ActionKind, Action } from "../actions";
+import { Act } from "../actions";
 
-export const MessageAreaReducer = (state = "", action: Action) => {
+export function MessageAreaReducer(
+    state: string = "",
+    action: Act<string | {}>
+): string {
     switch (action.type) {
-        case ActionKind.ChangedMessageArea: {
-            if (action.payload !== undefined) {
-                return action.payload.content || state;
+        case "ChangedMessageArea": {
+            if (typeof action.payload === "string") {
+                return action.payload;
             } else {
                 return state;
             }
         }
-        case ActionKind.ClearMessageArea: {
+        case "ClearMessageArea": {
             return "";
         }
         default: {

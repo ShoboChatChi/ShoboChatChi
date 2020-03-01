@@ -1,25 +1,19 @@
-import { ActionKind, Action } from "../actions";
-import { Message, isMessageArray } from "../types/Message";
 
-const initial: Array<Message> = [];
+import { Act } from "../actions";
+import { Message } from "../types/Message";
 
 export function MessageListReducer(
-    state: Array<Message> = initial,
-    action: Action
+    state: Array<Message> = [],
+    action: Act<Array<Message>>
 ): Array<Message> {
     switch (action.type) {
-        case ActionKind.GetNewMessage: {
-            const messages = action.payload.messages;
-            if (isMessageArray(messages)) {
-                return [...state, ...messages];
-            }
+        case "GetNewMessage": {
+            const messages = action.payload;
+            return [...state, ...messages];
         }
-        case ActionKind.GetAllMessages: {
-            const messages = action.payload.messages;
-            if (isMessageArray(messages)) {
-                return messages
-            }
-
+        case "GetAllMessages": {
+            const messages = action.payload;
+            return messages
         }
         default: {
             return state;

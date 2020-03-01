@@ -1,15 +1,18 @@
 import { connect } from "react-redux";
-import { changedNameInputAction } from "../actions";
-import Input from "../components/Input";
+import { Dispatch } from "redux";
 
-function mapStateToProps(state: any) {
+import { Act, changedNameInputAction } from "../actions";
+import Input from "../components/Input";
+import { RootState } from "../reducers";
+
+function mapStateToProps(state: RootState) {
     return {
         value: state.NameInputReducer,
         type: "text",
     };
 }
 
-function mapDispatchToProps(dispatch: any) {
+function mapDispatchToProps(dispatch: Dispatch<Act<string>>) {
     return {
         handleChange: (name: string) => {
             dispatch(changedNameInputAction(name));
