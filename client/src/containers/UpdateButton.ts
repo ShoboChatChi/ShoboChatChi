@@ -1,7 +1,8 @@
 import { connect } from "react-redux";
 
-import { getAllMessagesAction } from "../actions";
+import { getAllMessagesRequestAction } from "../actions";
 import Button from "../components/Button";
+import { ShoboDispath } from "../types/Dispatch";
 
 function mapStateToProps() {
     return {
@@ -10,10 +11,10 @@ function mapStateToProps() {
     };
 }
 
-function mapDispatchToProps(dispatch: any) {
+function mapDispatchToProps(dispatch: ShoboDispath) {
     return {
-        handleClick: (payload: any) => {
-            dispatch(getAllMessagesAction());
+        handleClick: () => {
+            dispatch(getAllMessagesRequestAction());
         },
     }
 }
