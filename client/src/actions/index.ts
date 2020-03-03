@@ -1,91 +1,104 @@
 import { MessageBeforeSend, Message } from "../types/Message";
-import { getAllMessages, postMessage } from "../http";
-import { Dispatch } from "redux";
+import { Action } from "typescript-fsa";
 
-export enum ActKindEnum {
-// MessageList
-    GetNewMessage,
-    GetAllMessages,
-// Input
-    ChangedNameInput,
-    ClearNameInput,
-// TextArea
-    ChangedMessageArea,
-    ClearMessageArea,
-    SendMessage,
+export enum ActionKind {
+    // Http
+    GetNewMessagesRequest = "GET_NEW_MESSAGES_REQUEST",
+    GetAllMessagesRequest = "GET_ALL_MESSAGES_REQUEST",
+    SendMessageRequest = "SEND_MESSAGE_REQUEST",
+    // MessageList
+    GotNewMessages = "GOT_NEW_MESSAGES",
+    GotAllMessages = "GOT_ALL_MESSAGES",
+    // Input
+    ChangedNameInput = "CHANGE_NAME_INPUT",
+    ClearNameInput = "CLEAR_NAME_INPUT",
+    // TextArea
+    ChangedMessageArea = "CHANGE_MESSAGE_AREA",
+    ClearMessageArea = "CLEAR_MESSAGE_AREA",
+    SentMessage = "SENT_MESSAGE",
 }
 
-export type ActKind = keyof typeof ActKindEnum;
-
-export interface Act<Payload> {
-    type: ActKind
-    payload: Payload
-}
-
-// MessageList
-export function GetNewMessageAction(
-    messages: Array<Message>
-): Act<Array<Message>> {
+// Http
+export function getNewMessagesRequestAction(): Action<{}> {
     return {
-        type: "GetNewMessage",
+        type: ActionKind.GetNewMessagesRequest,
+        payload: {}
+    };
+}
+
+export function getAllMessagesRequestAction(): Action<{}> {
+    return {
+        type: ActionKind.GetAllMessagesRequest,
+        payload: {}
+    };
+}
+
+export function sendMessageRequestAction(
+    message: MessageBeforeSend
+): Action<MessageBeforeSend> {
+    return {
+        type: ActionKind.SendMessageRequest,
+        payload: message
+    };
+}
+
+// MessageList
+export function gotNewMessagesAction(
+    messages: Array<Message>
+): Action<Array<Message>> {
+    return {
+        type: ActionKind.GotNewMessages,
         payload: messages
     }
 }
 
-export function getAllMessagesAction() {
-    return async (dispatch: Dispatch<Act<Array<Message>>>) => {
-        try {
-            const messages = await getAllMessages();
-            dispatch({
-                type: "GetAllMessages",
-                payload: messages
-            });
-        } catch (err) {
-            console.log(err);
-        }
-    }
+export function gotAllMessagesAction(
+    messages: Array<Message>
+): Action<Array<Message>> {
+    return {
+        type: ActionKind.GotAllMessages,
+        payload: messages
+    };
 }
 
 // Input
-export function changedNameInputAction(name: string): Act<string> {
+export function changedNameInputAction(
+    name: string
+): Action<string> {
     return {
-        type: "ChangedNameInput",
+        type: ActionKind.ChangedNameInput,
         payload: name
     };
 }
-export function clearNameInputAction(): Act<{}> {
+export function clearNameInputAction(): Action<{}> {
     return {
-        type: "ClearNameInput",
+        type: ActionKind.ClearNameInput,
         payload: {}
     }
 }
 
 // TextArea
-export function changedMessageAreaAction(content: string): Act<string> {
+export function changedMessageAreaAction(
+    content: string
+): Action<string> {
     return {
-        type: "ChangedMessageArea",
+        type: ActionKind.ChangedMessageArea,
         payload: content
     };
 }
 
-export function clearMessageAreaAction(): Act<{}> {
+export function clearMessageAreaAction(): Action<{}> {
     return {
-        type: "ClearMessageArea",
+        type: ActionKind.ClearMessageArea,
         payload: {}
     };
 }
 
-export function sendMessageAction(message: MessageBeforeSend) {
-    return async (dispatch: Dispatch<Act<boolean>>) => {
-        try {
-            const status = await postMessage(message);
-            dispatch({
-                type: "SendMessage",
-                payload: status
-            });
-        } catch (err) {
-            console.log(err);
-        }
+export function sentMessageAction(
+    message: MessageBeforeSend
+): Action<MessageBeforeSend> {
+    return {
+        type: ActionKind.SentMessage,
+        payload: message
     }
 }
-

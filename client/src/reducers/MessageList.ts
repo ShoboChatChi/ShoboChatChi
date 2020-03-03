@@ -1,17 +1,18 @@
 
-import { Act } from "../actions";
+import { Action } from "typescript-fsa";
+import { ActionKind } from "../actions";
 import { Message } from "../types/Message";
 
 export function MessageListReducer(
     state: Array<Message> = [],
-    action: Act<Array<Message>>
+    action: Action<Array<Message>>
 ): Array<Message> {
     switch (action.type) {
-        case "GetNewMessage": {
+        case ActionKind.GotNewMessages: {
             const messages = action.payload;
             return [...state, ...messages];
         }
-        case "GetAllMessages": {
+        case ActionKind.GotAllMessages: {
             const messages = action.payload;
             return messages
         }

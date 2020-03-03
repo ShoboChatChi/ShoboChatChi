@@ -1,19 +1,20 @@
 
-import { Act } from "../actions";
+import { Action } from "typescript-fsa";
+import { ActionKind } from "../actions";
 
 export function NameInputReducer(
     state = "",
-    action: Act<string | {}>
+    action: Action<string | {}>
 ): string {
     switch (action.type) {
-        case "ChangedNameInput": {
+        case ActionKind.ChangedNameInput: {
             if (typeof action.payload === "string") {
                 return action.payload;
             } else {
                 return state;
             }
         }
-        case "ClearNameInput": {
+        case ActionKind.ClearNameInput: {
             return "";
         }
         default: {

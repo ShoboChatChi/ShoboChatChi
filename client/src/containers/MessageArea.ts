@@ -1,10 +1,9 @@
 import { connect } from "react-redux";
-import { Dispatch } from "redux";
 
-import { Act } from "../actions";
 import { changedMessageAreaAction } from "../actions";
 import TextArea from "../components/TextArea";
 import { RootState } from "../reducers";
+import { ShoboDispath } from "../types/Dispatch";
 
 function mapStateToProps(state: RootState) {
     return {
@@ -12,7 +11,7 @@ function mapStateToProps(state: RootState) {
     };
 }
 
-function mapDispatchToProps(dispatch: Dispatch<Act<string>>) {
+function mapDispatchToProps(dispatch: ShoboDispath) {
     return {
         handleChange: (value: string) => {
             return dispatch(changedMessageAreaAction(value));

@@ -2,16 +2,17 @@ import { connect } from "react-redux";
 import { Dispatch } from "redux";
 
 import {
-    MessageBeforeSend,
     isMessageBeforeSend,
-    isCompleted } from "../types/Message";
+    isCompleted
+} from "../types/Message";
 import {
-    Act,
-    sendMessageAction,
+    sendMessageRequestAction,
     clearMessageAreaAction,
-    clearNameInputAction } from "../actions";
+    clearNameInputAction
+} from "../actions";
 import Button from "../components/Button";
 import { RootState } from "../reducers";
+import { ShoboDispath } from "../types/Dispatch";
 
 function mapStateToProps(state: RootState) {
     return {
@@ -23,12 +24,12 @@ function mapStateToProps(state: RootState) {
     };
 }
 
-function mapDispatchToProps(dispatch: Dispatch<any>) {
+function mapDispatchToProps(dispatch: ShoboDispath) {
     return {
         handleClick: (message: unknown) => {
             if (isMessageBeforeSend(message) &&
                 isCompleted(message)) {
-                dispatch(sendMessageAction(message));
+                dispatch(sendMessageRequestAction(message));
                 dispatch(clearMessageAreaAction());
                 dispatch(clearNameInputAction());
             }
@@ -38,4 +39,5 @@ function mapDispatchToProps(dispatch: Dispatch<any>) {
 
 export default connect(
     mapStateToProps,
+    mapDispatchToProps
 )(Button);
