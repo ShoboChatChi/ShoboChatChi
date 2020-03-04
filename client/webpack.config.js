@@ -1,4 +1,6 @@
 
+const StatsPlugin = require("stats-webpack-plugin");
+
 module.exports = {
     mode: "production",
     devtool: "source-map",
@@ -10,8 +12,7 @@ module.exports = {
             {
                 test: /\.ts(x?)$/,
                 exclude: /node_modules/,
-                use: [
-                    {
+                use: [{
                         loader: "ts-loader",
                     }
                 ]
@@ -21,5 +22,15 @@ module.exports = {
     output: {
         path: __dirname + "/public/dist/",
         filename: "bundle.js",
+    },
+    plugins: [
+        new StatsPlugin("stats.json", {
+            chunkModules: true,
+        }),
+    ],
+    externals: {
+        "react": "React",
+        "react-dom": "ReactDOM",
+        "@material-ui/core": "MaterialUI"
     }
 };

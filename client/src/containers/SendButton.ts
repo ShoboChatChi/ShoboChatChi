@@ -1,5 +1,4 @@
 import { connect } from "react-redux";
-import { Dispatch } from "redux";
 
 import {
     isMessageBeforeSend,
@@ -10,7 +9,7 @@ import {
     clearMessageAreaAction,
     clearNameInputAction
 } from "../actions";
-import Button from "../components/Button";
+import ShoboButton from "../components/ShoboButton";
 import { RootState } from "../reducers";
 import { ShoboDispath } from "../types/Dispatch";
 
@@ -40,4 +39,4 @@ function mapDispatchToProps(dispatch: ShoboDispath) {
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(Button);
+)(ShoboButton);
