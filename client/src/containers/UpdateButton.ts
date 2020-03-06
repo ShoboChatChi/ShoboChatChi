@@ -1,8 +1,9 @@
 import { connect } from "react-redux";
 
 import { getAllMessagesRequestAction } from "../actions";
-import Button from "../components/Button";
+import ShoboButton from "../components/ShoboButton";
 import { ShoboDispath } from "../types/Dispatch";
+
 
 function mapStateToProps() {
     return {
@@ -22,4 +23,4 @@ function mapDispatchToProps(dispatch: ShoboDispath) {
 export default connect(
     mapStateToProps,
     mapDispatchToProps,
-)(Button);
+)(ShoboButton);

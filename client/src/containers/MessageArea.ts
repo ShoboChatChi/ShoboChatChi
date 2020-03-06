@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
 
 import { changedMessageAreaAction } from "../actions";
-import TextArea from "../components/TextArea";
+import ShoboTextField from "../components/ShoboTextField";
 import { RootState } from "../reducers";
 import { ShoboDispath } from "../types/Dispatch";
 
@@ -22,4 +22,4 @@ function mapDispatchToProps(dispatch: ShoboDispath) {
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(TextArea);
+)(ShoboTextField);
