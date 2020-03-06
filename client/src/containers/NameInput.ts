@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { ShoboDispath } from "../types/Dispatch";
 
 import { changedNameInputAction } from "../actions";
-import Input from "../components/Input";
+import ShoboInput from "../components/ShoboInput";
 import { RootState } from "../reducers";
 
 function mapStateToProps(state: RootState) {
@@ -24,5 +24,5 @@ function mapDispatchToProps(dispatch: ShoboDispath) {
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(Input);
+)(ShoboInput);
 

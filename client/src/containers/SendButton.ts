@@ -36,6 +36,7 @@ function mapDispatchToProps(dispatch: ShoboDispath) {
     }
 }
 
+
 export default connect(
     mapStateToProps,
     mapDispatchToProps
