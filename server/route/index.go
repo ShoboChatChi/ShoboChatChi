@@ -1,11 +1,14 @@
 package route
 
-import(
-  "../handler/loginHandler/redirectChatWhenLoggedIn",
+import (
+	// "github.com/ShoboChatChi/ShoboChatChi/handler"
+	"github.com/gin-gonic/gin"
 )
 
-func SetupIndexRoute(r *gin.RouterGroup){
-  r.GET("/", redirectChatWhenLoggedIn, func (c *gin.Context)  {
-    next()
-  })
+func SetupIndexRoute(r *gin.RouterGroup) {
+	// r.GET("/",
+	// 	handler.redirectChatWhenLoggedIn,
+	// 	func(c *gin.Context) {
+	// 		// next()
+	// 	})
 }
